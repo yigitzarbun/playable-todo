@@ -1,8 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../redux-stuff/actions";
 function Register() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -10,15 +14,14 @@ function Register() {
     reset,
     formState: { errors, isValid },
   } = useForm();
+
   const handleRegister = (data) => {
     let dataWide = {
       ...data,
       registry_date: Date.now(),
     };
     delete dataWide.password2;
-    console.log(dataWide);
-    navigate("/login");
-    reset();
+    dispatch(registerUser(dataWide, navigate));
   };
   return (
     <div>
@@ -64,7 +67,7 @@ function Register() {
           <div className="registerFormContainer">
             <label>Password</label>
             <input
-              type="text"
+              type="password"
               {...register("password", {
                 required: "Password is required",
                 minLength: {
@@ -78,7 +81,7 @@ function Register() {
           <div className="registerFormContainer">
             <label>Repeat Password</label>
             <input
-              type="text"
+              type="password"
               {...register("password2", {
                 required: "Password is required",
                 minLength: {
@@ -102,7 +105,7 @@ function Register() {
               <p className="font-bold">Register</p>
             </button>
             <Link
-              to="/intro"
+              to="/"
               className="font-bold mt-4 ml-2 w-1/2 border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white p-2 text-center"
             >
               <button>
