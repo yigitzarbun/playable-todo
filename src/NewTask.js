@@ -8,7 +8,7 @@ function NewTask() {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm({ defaultValues: { importance: "medium" } });
+  } = useForm({ defaultValues: { importance: "medium", status: "toDo" } });
   const handleNewTask = (data) => {
     console.log(data);
     navigate("/");
@@ -33,7 +33,6 @@ function NewTask() {
             />
             {errors.title && <span>{errors.title.message}</span>}
           </div>
-
           <div className="newTaskFormContainer">
             <label>Description</label>
             <textarea
@@ -48,14 +47,49 @@ function NewTask() {
             {errors.description && <span>{errors.description.message}</span>}
           </div>
           <div className="flex justify-between">
-            <div className="newTaskFormContainer w-2/5">
-              <label>Deadline</label>
-              <input type="date" {...register("deadline")} className="h-2/3" />
+            <div className="newTaskFormContainer">
+              <label>Tag</label>
+              <input
+                type="text"
+                {...register("tag", { required: "Task tag is required" })}
+              />
               {errors.description && <span>{errors.description.message}</span>}
             </div>
             <div className="newTaskFormContainer w-2/5">
+              <label>Status</label>
+              <select
+                {...register("status", {
+                  required: "Task status is required",
+                })}
+                className="h-2/3"
+              >
+                <option value="toDo">To Do</option>
+                <option value="inProgress">In Progress </option>
+                <option value="done">Done</option>
+              </select>
+              {errors.status && <span>{errors.status.message}</span>}
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div className="newTaskFormContainer w-2/5">
+              <label>Deadline</label>
+              <input
+                type="date"
+                {...register("deadline", {
+                  required: "Task deadline is required",
+                })}
+                className="h-2/3"
+              />
+              {errors.deadline && <span>{errors.deadline.message}</span>}
+            </div>
+            <div className="newTaskFormContainer w-2/5">
               <label>Importance</label>
-              <select {...register("importance")} className="h-2/3">
+              <select
+                {...register("importance", {
+                  required: "Task importance is required",
+                })}
+                className="h-2/3"
+              >
                 <option value="low">Low</option>
                 <option value="medium">Medium </option>
                 <option value="high">High</option>
@@ -65,12 +99,12 @@ function NewTask() {
           </div>
           <div className="uploadFileContainer">
             <label>Image</label>
-            <input type="file" />
+            <input type="file" name="image" />
             {errors.image && <span>{errors.image.message}</span>}
           </div>
           <div className="uploadFileContainer">
             <label>File</label>
-            <input type="file" />
+            <input type="file" name="file" />
             {errors.file && <span>{errors.file.message}</span>}
           </div>
           <div className="flex">

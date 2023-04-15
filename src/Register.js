@@ -13,7 +13,6 @@ function Register() {
   const handleRegister = (data) => {
     let dataWide = {
       ...data,
-      user_id: Date.now(),
       registry_date: Date.now(),
     };
     delete dataWide.password2;
