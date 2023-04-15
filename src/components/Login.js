@@ -1,7 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { loginWith } from "../redux-stuff/actions";
+
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
     register,
@@ -10,8 +14,10 @@ function Login() {
     formState: { errors, isValid },
   } = useForm();
   const handleLogin = (data) => {
-    console.log(data);
-    navigate("/");
+    dispatch(loginWith(data, navigate));
+    reset();
+  };
+  const handleClearForm = () => {
     reset();
   };
   return (
@@ -37,7 +43,7 @@ function Login() {
           <div className="loginFormContainer">
             <label>Password</label>
             <input
-              type="text"
+              type="password"
               {...register("password", {
                 required: "Password is required",
               })}
@@ -52,14 +58,12 @@ function Login() {
             >
               <p className="font-bold">Login</p>
             </button>
-            <Link
-              to="/intro"
+            <button
+              onClick={handleClearForm}
               className="font-bold mt-4 ml-2 w-1/2 border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white p-2 text-center"
             >
-              <button>
-                <p>Discard</p>
-              </button>
-            </Link>
+              <p>Clear</p>
+            </button>
           </div>
         </form>
         <Link to="/register">

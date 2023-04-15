@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // auth
-export const token = "playable2do";
+export const key = "playable2do";
 export function getUserFromLs() {
   let user = null;
-  const userString = JSON.parse(localStorage.getItem(token));
+  const userString = JSON.parse(localStorage.getItem(key));
   if (userString) {
     user = userString.user;
   }
@@ -18,10 +18,11 @@ let url = developmentUrl;
 
 // exports
 export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";
 
 // axios (auth) set header
 const axiosWithAuth = () => {
-  const tokenObj = JSON.parse(localStorage.getItem(token));
+  const tokenObj = JSON.parse(localStorage.getItem(key));
   const token = tokenObj.token;
   return axios.create({
     headers: {
@@ -39,14 +40,14 @@ export const registerUser = (formData, navigate) => (dispatch) => {
   });
 };
 
-export const loginWith = (formData, history) => (dispatch) => {
+export const loginWith = (formData, navigate) => (dispatch) => {
   axios
     .post(url + "api/auth/login", formData)
     .then((response) => {
       if (response.status == 200) {
         dispatch({ type: LOGIN, payload: response.data });
         setTimeout(() => {
-          history.push("/");
+          navigate("/");
         }, 2000);
       }
     })

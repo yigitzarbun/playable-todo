@@ -1,5 +1,5 @@
 // imports
-import { getUserFromLs, token, LOGIN } from "./actions";
+import { getUserFromLs, key, LOGIN, LOGOUT } from "./actions";
 
 //initial state
 const initialState = {
@@ -12,10 +12,16 @@ const initialState = {
 export function myReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN:
-      localStorage.setItem(token, JSON.stringify(action.payload));
+      localStorage.setItem(key, JSON.stringify(action.payload));
       return {
         ...state,
         user: action.payload,
+      };
+    case LOGOUT:
+      localStorage.removeItem(key);
+      return {
+        ...state,
+        user: null,
       };
     default:
       return state;
