@@ -11,20 +11,53 @@ function Header() {
     navigate("/login");
   };
   return (
-    <div className="flex justify-between py-8">
-      <NavLink to="/" className="w-1/5">
+    <div className="flex justify-between py-8 items-center">
+      <NavLink to="/" className="w-1/5 font-bold text-2xl">
         Playable
       </NavLink>
-      <input type="text" className="searchBar w-2/5" />
-      <nav className="flex justify-between w-1/5">
-        <NavLink to="/">To Do</NavLink>
+      <nav className="flex justify-between w-1/5 items-center">
         {user ? (
-          <button onClick={handleLogout}>Logout</button>
+          <>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "active-link"
+                  : "p-2 font-bold cursor-pointer hover:text-slate-800"
+              }
+              to="/"
+            >
+              To Do
+            </NavLink>
+            <button
+              onClick={handleLogout}
+              className="p-2 font-bold cursor-pointer hover:text-slate-800"
+            >
+              Logout
+            </button>
+          </>
         ) : (
-          <div>
-            <NavLink to="/login">Login</NavLink>
-            <NavLink to="/register">Register</NavLink>
-          </div>
+          <>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "active-link"
+                  : "p-2 font-bold cursor-pointer hover:text-slate-800"
+              }
+              to="/login"
+            >
+              Login
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "active-link"
+                  : "p-2 font-bold cursor-pointer hover:text-slate-800"
+              }
+              to="/register"
+            >
+              Register
+            </NavLink>
+          </>
         )}
       </nav>
     </div>

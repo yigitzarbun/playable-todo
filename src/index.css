@@ -27,8 +27,7 @@ code {
 .registerFormContainer input,
 .newTaskFormContainer input,
 .newTaskFormContainer select,
-.newTaskFormContainer textarea,
-.searchBar {
+.newTaskFormContainer textarea {
   @apply w-full rounded-md text-black px-2 py-3;
 }
 
@@ -41,4 +40,8 @@ code {
 .uploadFileContainer,
 .newTaskFormContainer {
   @apply mt-4;
+}
+
+.active-link {
+  @apply text-blue-500 font-bold;
 }

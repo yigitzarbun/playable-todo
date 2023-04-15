@@ -124,7 +124,7 @@ function NewTask() {
               <p className="font-bold">Submit</p>
             </button>
             <Link
-              to="/intro"
+              to="/"
               className="font-bold mt-4 ml-2 w-1/2 border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white p-2 text-center"
             >
               <button>
