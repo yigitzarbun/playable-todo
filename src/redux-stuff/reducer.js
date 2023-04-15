@@ -1,5 +1,13 @@
 // imports
-import { getUserFromLs, key, LOGIN, LOGOUT } from "./actions";
+import {
+  getUserFromLs,
+  key,
+  LOGIN,
+  LOGOUT,
+  ADD_TASK,
+  GET_ALL_TASKS,
+  GET_MY_TASKS,
+} from "./actions";
 
 //initial state
 const initialState = {
@@ -22,6 +30,22 @@ export function myReducer(state = initialState, action) {
       return {
         ...state,
         user: null,
+      };
+    case ADD_TASK:
+      return {
+        ...state,
+        allTasks: [action.payload, ...(state.allTasks || [])],
+        myTasks: [action.payload, ...(state.myTasks || [])],
+      };
+    case GET_ALL_TASKS:
+      return {
+        ...state,
+        allTasks: action.payload,
+      };
+    case GET_MY_TASKS:
+      return {
+        ...state,
+        myTasks: action.payload,
       };
     default:
       return state;

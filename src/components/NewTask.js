@@ -1,8 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { addTask } from "../redux-stuff/actions";
+
 function NewTask() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
   const {
     register,
     handleSubmit,
@@ -10,8 +15,11 @@ function NewTask() {
     formState: { errors, isValid },
   } = useForm({ defaultValues: { importance: "medium", status: "toDo" } });
   const handleNewTask = (data) => {
-    console.log(data);
-    navigate("/");
+    const dataWide = {
+      ...data,
+      user_id: user.user_id,
+    };
+    dispatch(addTask(dataWide, navigate));
     reset();
   };
   return (
