@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: beige;
 }
 
 code {
@@ -15,3 +16,29 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.loginFormContainer label,
+.registerFormContainer label,
+.newTaskFormContainer label {
+  @apply font-bold;
+}
+
+.loginFormContainer input,
+.registerFormContainer input,
+.newTaskFormContainer input,
+.newTaskFormContainer select,
+.newTaskFormContainer textarea,
+.searchBar {
+  @apply w-full rounded-md text-black px-2 py-3;
+}
+
+.uploadFileContainer input {
+  @apply text-white w-full rounded-md;
+}
+
+.loginFormContainer,
+.registerFormContainer,
+.uploadFileContainer,
+.newTaskFormContainer {
+  @apply mt-4;
+}
