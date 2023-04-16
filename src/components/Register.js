@@ -25,7 +25,7 @@ function Register() {
   };
   return (
     <div>
-      <div className="bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-1/2 mx-auto">
+      <div className="bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-1/2 mx-auto xs:w-2/3">
         <h2 className="font-bold text-4xl">Register</h2>
         <form
           onSubmit={handleSubmit(handleRegister)}

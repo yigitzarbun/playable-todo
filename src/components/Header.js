@@ -11,11 +11,11 @@ function Header() {
     navigate("/login");
   };
   return (
-    <div className="flex justify-between py-8 items-center">
+    <div className="flex justify-between py-8 items-center xs:flex-col">
       <NavLink to="/" className="w-1/5 font-bold text-2xl">
-        Playable
+        <h1>Playable</h1>
       </NavLink>
-      <nav className="flex justify-between w-1/5 items-center">
+      <nav className="flex justify-between w-1/5 items-center xs:w-1/2">
         {user ? (
           <>
             <NavLink

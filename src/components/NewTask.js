@@ -61,7 +61,7 @@ function NewTask() {
             />
             {errors.description && <span>{errors.description.message}</span>}
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between xs:flex-col">
             <div className="newTaskFormContainer">
               <label>Tag</label>
               <input
@@ -70,7 +70,7 @@ function NewTask() {
               />
               {errors.description && <span>{errors.description.message}</span>}
             </div>
-            <div className="newTaskFormContainer w-2/5">
+            <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Status</label>
               <select
                 {...register("status", {
@@ -85,8 +85,8 @@ function NewTask() {
               {errors.status && <span>{errors.status.message}</span>}
             </div>
           </div>
-          <div className="flex justify-between">
-            <div className="newTaskFormContainer w-2/5">
+          <div className="flex justify-between xs:flex-col">
+            <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Deadline</label>
               <input
                 type="date"
@@ -97,7 +97,7 @@ function NewTask() {
               />
               {errors.deadline && <span>{errors.deadline.message}</span>}
             </div>
-            <div className="newTaskFormContainer w-2/5">
+            <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Importance</label>
               <select
                 {...register("importance", {
@@ -122,9 +122,9 @@ function NewTask() {
             <input type="file" name="file" />
             {errors.file && <span>{errors.file.message}</span>}
           </div>
-          <div className="flex">
+          <div className="flex xs:flex-col">
             <button
-              className="mt-4 mr-2  border-2 w-1/2 cursor-pointer border-green-500 rounded-md hover:bg-green-500 hover:text-white p-2"
+              className="mt-4 mr-2  border-2 w-1/2 cursor-pointer border-green-500 rounded-md hover:bg-green-500 hover:text-white p-2 xs:w-full"
               disabled={!isValid}
               type="submit"
             >
@@ -132,7 +132,7 @@ function NewTask() {
             </button>
             <Link
               to="/"
-              className="font-bold mt-4 ml-2 w-1/2 border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white p-2 text-center"
+              className="font-bold mt-4 ml-2 w-1/2 border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white p-2 text-center xs:w-full xs:ml-0"
             >
               <button>
                 <p>Discard</p>

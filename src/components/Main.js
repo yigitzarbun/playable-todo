@@ -28,63 +28,65 @@ function Main() {
     dispatch(getMyTasks(user));
   }, [allTasks]);
   return (
-    <div>
-      <div className="flex justify-between">
+    <div className="mb-8">
+      <div className="flex justify-between border-b-2 border-b-black pb-4 xs:flex-col xs:items-center">
         <Link to="/new-task" className="inline-flex	">
-          <div className=" inline-flex	items-center mr-4">
+          <div className=" inline-flex	items-center mr-4 ">
             <img
               src="/images/newTask.png"
               alt="add-task"
               className="w-8 h-8 mr-2"
             />
-            <p>New Task</p>
+            <p className="font-bold">New Task</p>
           </div>
         </Link>
         <select
           onChange={handleSearch}
-          className="searchBar w-1/5 rounded-md text-black px-2 py-3"
+          className="searchBar w-1/5 rounded-md text-black px-2 py-3 border-2 border-slate-950 hover:border-blue-500 bg-[#F5F5DC] xs:w-1/2 xs:mt-2"
         >
-          <option value="">Tags</option>
+          <option className="font-bold" value="">
+            Tags
+          </option>
           {myTasks.map((t) => (
-            <option key={t.task_id}>{t.tag}</option>
+            <option className="font-bold" key={t.task_id}>
+              {t.tag}
+            </option>
           ))}
         </select>
         <input
           type="text"
-          className="searchBar w-2/5 rounded-md text-black px-2 py-3"
+          className="placeholder-black searchBar w-2/5 rounded-md text-black px-2 py-3 border-2 border-slate-950 hover:border-blue-500 bg-[#F5F5DC] xs:w-1/2 xs:mt-2"
           name="search"
           id="search"
           value={searchTerm}
           onChange={handleSearch}
-          placeholder="Search by task title or category"
+          placeholder="Search by title / category"
         />
-        {searchTerm && (
-          <button
-            onClick={clearSearchTerm}
-            className="w-1/5 font-bold border-2  cursor-pointer border-slate-950 rounded-md hover:border-red-500 hover:text-red-500 p-1"
-          >
-            Clear
-          </button>
-        )}
+        <button
+          onClick={clearSearchTerm}
+          className="font-bold border-2  cursor-pointer border-slate-950 rounded-md hover:border-red-500 hover:text-red-500 p-1 xs:mt-2"
+        >
+          Clear
+        </button>
       </div>
       <main className="flex flex-col mt-8">
-        <div className="flex justify-between">
+        <div className="flex justify-between xs:flex-col xs:items-center">
           <button
-            className=" font-bold   border-2 w-1/4 cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2"
+            className=" font-bold   border-2 w-1/4 cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2 xs:w-1/2 xs:mt-2"
             onClick={() => handleDisplay("toDo")}
             style={display == "toDo" ? activeColor : {}}
           >
             To Do
           </button>
           <button
-            className=" font-bold   border-2 w-1/4 cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2"
+            className=" font-bold   border-2 w-1/4 cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2 xs:w-1/2 xs:mt-2"
             onClick={() => handleDisplay("inProgress")}
             style={display == "inProgress" ? activeColor : {}}
           >
             In Progress
           </button>
           <button
-            className=" font-bold   border-2 w-1/4 cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2"
+            className=" font-bold   border-2 w-1/4 cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2 xs:w-1/2 xs:mt-2"
             onClick={() => handleDisplay("done")}
             style={display == "done" ? activeColor : {}}
           >

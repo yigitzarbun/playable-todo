@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 // auth
 export const key = "playable2do";
@@ -40,6 +41,7 @@ const axiosWithAuth = () => {
 export const registerUser = (formData, navigate) => (dispatch) => {
   axios.post(url + "api/auth/register", formData).then((response) => {
     if (response.status == 201) {
+      toast.success("Registered successfully");
       navigate("/login");
     }
   });
@@ -51,6 +53,7 @@ export const loginWith = (formData, navigate) => (dispatch) => {
     .then((response) => {
       if (response.status == 200) {
         dispatch({ type: LOGIN, payload: response.data });
+        toast.success("Login successful");
         setTimeout(() => {
           navigate("/");
         }, 2000);
@@ -58,6 +61,7 @@ export const loginWith = (formData, navigate) => (dispatch) => {
     })
     .catch((error) => {
       console.log("login error: ", error);
+      toast.error(error.response.data.message);
     });
 };
 
@@ -67,6 +71,7 @@ export const addTask = (data, navigate) => (dispatch) => {
     .then((response) => {
       if (response.status == 201) {
         dispatch({ type: ADD_TASK, payload: response.data });
+        toast.success("New task added");
         navigate("/");
       }
     })
@@ -100,6 +105,7 @@ export const editTask = (data) => (dispatch) => {
     .then((response) => {
       if (response.status === 201) {
         dispatch({ type: EDIT_TASK, payload: response.data });
+        toast.success("Task edited");
       }
     })
     .catch((error) => {
@@ -113,6 +119,7 @@ export const deleteTask = (id) => (dispatch) => {
     .then((response) => {
       if (response.status == 201) {
         dispatch({ type: DELETE_TASK, payload: response.data });
+        toast.success("Task deleted");
       }
     });
 };
