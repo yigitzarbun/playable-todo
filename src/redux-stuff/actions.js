@@ -1,4 +1,5 @@
 import axios from "axios";
+import { response } from "express";
 
 // auth
 export const key = "playable2do";
@@ -22,6 +23,8 @@ export const LOGOUT = "LOGOUT";
 export const ADD_TASK = "ADD_TASK";
 export const GET_ALL_TASKS = "GET_ALL_TASKS";
 export const GET_MY_TASKS = "GET_MY_TASKS";
+export const EDIT_TASK = "EDIT_TASK";
+export const DELETE_TASK = "DELETE_TASK";
 
 // axios (auth) set header
 const axiosWithAuth = () => {
@@ -90,4 +93,27 @@ export const getMyTasks = (user) => (dispatch) => {
       dispatch({ type: GET_MY_TASKS, payload: myTasks });
     })
     .catch((error) => console.log(error));
+};
+
+export const editTask = (data) => (dispatch) => {
+  axiosWithAuth()
+    .put(url + `api/tasks/${data.task_id}`, data)
+    .then((response) => {
+      if (response.status === 201) {
+        dispatch({ type: EDIT_TASK, payload: response.data });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const deleteTask = (id) => (dispatch) => {
+  axiosWithAuth()
+    .delete(url + `api/tasks/${id}`)
+    .then((response) => {
+      if (response.status == 201) {
+        dispatch({ type: DELETE_TASK, payload: response.data });
+      }
+    });
 };

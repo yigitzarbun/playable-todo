@@ -7,7 +7,7 @@ import InProgress from "./InProgress";
 import Done from "./Done";
 function Main() {
   const dispatch = useDispatch();
-  const { myTasks, user } = useSelector((store) => store);
+  const { myTasks, user, allTasks } = useSelector((store) => store);
   const [display, setDisplay] = useState("toDo");
   const handleDisplay = (value) => {
     setDisplay(value);
@@ -17,11 +17,9 @@ function Main() {
     border: "rgb(59 130 246 / var(--tw-bg-opacity))",
     color: "white",
   };
-  console.log(user);
-  console.log(myTasks);
   useEffect(() => {
     dispatch(getMyTasks(user));
-  }, []);
+  }, [allTasks]);
   return (
     <div>
       <div className="flex justify-between">

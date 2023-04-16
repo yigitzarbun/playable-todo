@@ -7,6 +7,8 @@ import {
   ADD_TASK,
   GET_ALL_TASKS,
   GET_MY_TASKS,
+  EDIT_TASK,
+  DELETE_TASK,
 } from "./actions";
 
 //initial state
@@ -46,6 +48,27 @@ export function myReducer(state = initialState, action) {
       return {
         ...state,
         myTasks: action.payload,
+      };
+    case EDIT_TASK:
+      const copyTasks = [...(state.allTasks || [])];
+      const oldTask = copyTasks.filter(
+        (task) => task.task_id == action.payload.task_id
+      )[0];
+      const updatedTask = action.payload;
+      const index = copyTasks.indexOf(oldTask);
+      copyTasks.splice(index, 1, updatedTask);
+      return {
+        ...state,
+        allTasks: [...copyTasks],
+      };
+    case DELETE_TASK:
+      const copyTasks2 = [...state.allTasks];
+      const newTasks = copyTasks2.filter(
+        (task) => action.payload !== task.task_id
+      );
+      return {
+        ...state,
+        allTasks: [...newTasks],
       };
     default:
       return state;

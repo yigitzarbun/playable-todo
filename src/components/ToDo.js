@@ -24,7 +24,7 @@ function InProgress(props) {
     myTasks != null &&
     myTasks != undefined
   ) {
-    toDoTasks = myTasks.filter((task) => task.status === "inProgress");
+    toDoTasks = myTasks.filter((task) => task.status === "toDo");
     resultJsx = toDoTasks.map((task) => (
       <Task key={task.task_id} task={task} />
     ));
