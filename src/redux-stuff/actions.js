@@ -1,5 +1,4 @@
 import axios from "axios";
-import { response } from "express";
 
 // auth
 export const key = "playable2do";
