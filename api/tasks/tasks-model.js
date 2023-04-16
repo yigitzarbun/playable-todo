@@ -29,7 +29,7 @@ async function update(task_id, changes) {
 }
 
 async function remove(task_id) {
-  return db("taks").where("task_id", task_id).del();
+  return db("tasks").where("task_id", task_id).del();
 }
 
 module.exports = { getAll, getByFilter, getById, add, update, remove };
