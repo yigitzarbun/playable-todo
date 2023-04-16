@@ -40,8 +40,11 @@ function Main() {
             <p>New Task</p>
           </div>
         </Link>
-        <select onChange={handleSearch}>
-          <option></option>
+        <select
+          onChange={handleSearch}
+          className="searchBar w-1/5 rounded-md text-black px-2 py-3"
+        >
+          <option value="">Tags</option>
           {myTasks.map((t) => (
             <option key={t.task_id}>{t.tag}</option>
           ))}
@@ -89,13 +92,28 @@ function Main() {
           </button>
         </div>
         {display === "toDo" && (
-          <ToDo myTasks={myTasks} searchTerm={searchTerm} />
+          <ToDo
+            myTasks={myTasks}
+            searchTerm={searchTerm}
+            clearSearchTerm={clearSearchTerm}
+            setSetSearchTerm={setSetSearchTerm}
+          />
         )}
         {display === "inProgress" && (
-          <InProgress myTasks={myTasks} searchTerm={searchTerm} />
+          <InProgress
+            myTasks={myTasks}
+            searchTerm={searchTerm}
+            clearSearchTerm={clearSearchTerm}
+            setSetSearchTerm={setSetSearchTerm}
+          />
         )}
         {display === "done" && (
-          <Done myTasks={myTasks} searchTerm={searchTerm} />
+          <Done
+            myTasks={myTasks}
+            searchTerm={searchTerm}
+            clearSearchTerm={clearSearchTerm}
+            setSetSearchTerm={setSetSearchTerm}
+          />
         )}
       </main>
     </div>

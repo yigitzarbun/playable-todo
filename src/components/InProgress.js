@@ -2,21 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Task from "./Task";
 function InProgress(props) {
-  const { myTasks, searchTerm } = props;
+  const { myTasks, searchTerm, clearSearchTerm, setSetSearchTerm } = props;
   let resultJsx = "";
-  let toDoTasks = "";
+  let inProgressTasks = "";
   if (myTasks === null) {
     resultJsx = "Loading tasks";
-  } else if (myTasks.length === 0) {
+  } else if (myTasks.filter((t) => t.status == "inProgress").length === 0) {
     resultJsx = (
-      <div>
-        <p className="font-bold text-xl">No tasks available</p>
-        <p className="mb-4">Create your first task</p>
-        <Link to="/new-task">
-          <button className="bg-black text-white block p-3 w-1/3 hover:bg-blue-600 disabled:bg-slate-500 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl">
-            Create Task
-          </button>
-        </Link>
+      <div className="text-center mt-8">
+        <p className="font-bold text-xl">No tasks in progress</p>
       </div>
     );
   } else if (
@@ -24,8 +18,8 @@ function InProgress(props) {
     myTasks != null &&
     myTasks != undefined
   ) {
-    toDoTasks = myTasks.filter((task) => task.status === "inProgress");
-    resultJsx = toDoTasks
+    inProgressTasks = myTasks.filter((task) => task.status === "inProgress");
+    resultJsx = inProgressTasks
       .filter((task) => {
         if ((task.title && task.title == "") || (task.tag && task.tag == "")) {
           return task;
@@ -38,9 +32,37 @@ function InProgress(props) {
           return task;
         }
       })
-      .map((task) => <Task key={task.task_id} task={task} />);
+      .map((task) => (
+        <Task
+          key={task.task_id}
+          task={task}
+          setSetSearchTerm={setSetSearchTerm}
+        />
+      ));
   }
 
-  return <div>{resultJsx}</div>;
+  return (
+    <div>
+      {resultJsx.length == 0 && searchTerm.length > 0 ? (
+        <div className="text-center mt-8">
+          <h2 className="text-xl font-bold">
+            There are no tasks matching your criteria.
+          </h2>
+          <p className="mt-4">
+            Try clearing filter or search to view available tasks, if there are
+            any.
+          </p>
+          <button
+            onClick={clearSearchTerm}
+            className="w-1/5 font-bold border-2 mt-4 cursor-pointer border-slate-950 rounded-md hover:border-red-500 hover:text-red-500 p-1"
+          >
+            Clear
+          </button>
+        </div>
+      ) : (
+        resultJsx
+      )}
+    </div>
+  );
 }
 export default InProgress;

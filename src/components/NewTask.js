@@ -24,8 +24,15 @@ function NewTask() {
   };
   return (
     <div>
-      <div className="bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-1/2 mx-auto">
-        <h2 className="font-bold text-4xl">New Task</h2>
+      <div className="bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-2/3 mx-auto">
+        <Link to="/" className="flex justify-between items-center">
+          <h2 className="font-bold text-4xl">New Task</h2>
+          <img
+            src="/images/close.png"
+            alt="close"
+            className="w-6 h-6 cursor-pointer"
+          />
+        </Link>
         <form
           onSubmit={handleSubmit(handleNewTask)}
           className="newTaskForm flex flex-col mt-4"

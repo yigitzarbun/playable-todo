@@ -36,7 +36,7 @@ function EditTask(props) {
 
   return (
     <div>
-      <div className="bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-1/2 mx-auto">
+      <div className="bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-2/3 mx-auto">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-4xl">Edit Task</h2>
           <img
