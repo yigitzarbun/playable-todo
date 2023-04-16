@@ -17,6 +17,13 @@ function Main() {
     border: "rgb(59 130 246 / var(--tw-bg-opacity))",
     color: "white",
   };
+  const [searchTerm, setSetSearchTerm] = useState("");
+  const handleSearch = (event) => {
+    setSetSearchTerm(event.target.value);
+  };
+  const clearSearchTerm = () => {
+    setSetSearchTerm("");
+  };
   useEffect(() => {
     dispatch(getMyTasks(user));
   }, [allTasks]);
@@ -33,19 +40,29 @@ function Main() {
             <p>New Task</p>
           </div>
         </Link>
+        <select onChange={handleSearch}>
+          <option></option>
+          {myTasks.map((t) => (
+            <option key={t.task_id}>{t.tag}</option>
+          ))}
+        </select>
         <input
           type="text"
           className="searchBar w-2/5 rounded-md text-black px-2 py-3"
+          name="search"
+          id="search"
+          value={searchTerm}
+          onChange={handleSearch}
           placeholder="Search by task title or category"
         />
-        <div className="flex justify-between w-1/5 ">
-          <button className=" font-bold border-2  cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2">
-            Search
-          </button>
-          <button className=" font-bold border-2  cursor-pointer border-slate-950 rounded-md hover:border-blue-500 hover:text-blue-500 p-2">
+        {searchTerm && (
+          <button
+            onClick={clearSearchTerm}
+            className="w-1/5 font-bold border-2  cursor-pointer border-slate-950 rounded-md hover:border-red-500 hover:text-red-500 p-1"
+          >
             Clear
           </button>
-        </div>
+        )}
       </div>
       <main className="flex flex-col mt-8">
         <div className="flex justify-between">
@@ -71,9 +88,15 @@ function Main() {
             Done
           </button>
         </div>
-        {display === "toDo" && <ToDo myTasks={myTasks} />}
-        {display === "inProgress" && <InProgress myTasks={myTasks} />}
-        {display === "done" && <Done myTasks={myTasks} />}
+        {display === "toDo" && (
+          <ToDo myTasks={myTasks} searchTerm={searchTerm} />
+        )}
+        {display === "inProgress" && (
+          <InProgress myTasks={myTasks} searchTerm={searchTerm} />
+        )}
+        {display === "done" && (
+          <Done myTasks={myTasks} searchTerm={searchTerm} />
+        )}
       </main>
     </div>
   );

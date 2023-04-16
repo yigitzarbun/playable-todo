@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Task from "./Task";
 function InProgress(props) {
-  const { myTasks } = props;
+  const { myTasks, searchTerm } = props;
   let resultJsx = "";
   let toDoTasks = "";
   if (myTasks === null) {
@@ -25,9 +25,20 @@ function InProgress(props) {
     myTasks != undefined
   ) {
     toDoTasks = myTasks.filter((task) => task.status === "inProgress");
-    resultJsx = toDoTasks.map((task) => (
-      <Task key={task.task_id} task={task} />
-    ));
+    resultJsx = toDoTasks
+      .filter((task) => {
+        if ((task.title && task.title == "") || (task.tag && task.tag == "")) {
+          return task;
+        } else if (
+          (task.title &&
+            task.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (task.tag &&
+            task.tag.toLowerCase().includes(searchTerm.toLowerCase()))
+        ) {
+          return task;
+        }
+      })
+      .map((task) => <Task key={task.task_id} task={task} />);
   }
 
   return <div>{resultJsx}</div>;

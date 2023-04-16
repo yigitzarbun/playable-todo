@@ -14,9 +14,9 @@ import {
 //initial state
 const initialState = {
   user: getUserFromLs(),
-  users: null,
-  allTasks: null,
-  myTasks: null,
+  users: [],
+  allTasks: [],
+  myTasks: [],
 };
 
 export function myReducer(state = initialState, action) {
