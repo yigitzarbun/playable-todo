@@ -22,6 +22,16 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    /*
+    const image = req.files.image;
+    const path = __dirname + "/images/" + image.name;
+    image.mv(path, (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      return res.send({ status: "success", path: path });
+    });
+    */
     const task = await tasksModel.add(req.body);
     res.status(201).json(task);
   } catch (error) {

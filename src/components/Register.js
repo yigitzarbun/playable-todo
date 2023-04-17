@@ -13,7 +13,7 @@ function Register() {
     getValues,
     reset,
     formState: { errors, isValid },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
 
   const handleRegister = (data) => {
     let dataWide = {
@@ -40,7 +40,9 @@ function Register() {
                 required: "Email is required",
               })}
             />
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && (
+              <span className="fieldError">{errors.email.message}</span>
+            )}
           </div>
           <div className="registerFormContainer">
             <label>First Name</label>
@@ -51,7 +53,9 @@ function Register() {
                 required: "First name is required",
               })}
             />
-            {errors.fname && <span>{errors.fname.message}</span>}
+            {errors.fname && (
+              <span className="fieldError">{errors.fname.message}</span>
+            )}
           </div>
           <div className="registerFormContainer">
             <label>Last Name</label>
@@ -62,7 +66,9 @@ function Register() {
                 required: "Last name is required",
               })}
             />
-            {errors.lname && <span>{errors.lname.message}</span>}
+            {errors.lname && (
+              <span className="fieldError">{errors.lname.message}</span>
+            )}
           </div>
           <div className="registerFormContainer">
             <label>Password</label>
@@ -76,7 +82,9 @@ function Register() {
                 },
               })}
             />
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && (
+              <span className="fieldError">{errors.password.message}</span>
+            )}
           </div>
           <div className="registerFormContainer">
             <label>Repeat Password</label>
@@ -94,7 +102,9 @@ function Register() {
                 },
               })}
             />
-            {errors.password2 && <span>{errors.password2.message}</span>}
+            {errors.password2 && (
+              <span className="fieldError">{errors.password2.message}</span>
+            )}
           </div>
           <div className="flex">
             <button

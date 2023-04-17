@@ -22,6 +22,7 @@ function EditTask(props) {
       deadline: task.deadline,
       importance: task.importance,
     },
+    mode: "onChange",
   });
   const handleEditTask = (data) => {
     const dataWide = {
@@ -59,7 +60,9 @@ function EditTask(props) {
                 required: "Task title is required",
               })}
             />
-            {errors.title && <span>{errors.title.message}</span>}
+            {errors.title && (
+              <span className="fieldError">{errors.title.message}</span>
+            )}
           </div>
           <div className="newTaskFormContainer">
             <label>Description</label>
@@ -72,16 +75,20 @@ function EditTask(props) {
                 },
               })}
             />
-            {errors.description && <span>{errors.description.message}</span>}
+            {errors.description && (
+              <span className="fieldError">{errors.description.message}</span>
+            )}
           </div>
-          <div className="flex justify-between">
-            <div className="newTaskFormContainer">
+          <div className="flex justify-between items-start">
+            <div className="newTaskFormContainer w-2/5 ">
               <label>Tag</label>
               <input
                 type="text"
                 {...register("tag", { required: "Task tag is required" })}
               />
-              {errors.description && <span>{errors.description.message}</span>}
+              {errors.tag && (
+                <span className="fieldError">{errors.tag.message}</span>
+              )}
             </div>
             <div className="newTaskFormContainer w-2/5">
               <label>Status</label>
@@ -95,7 +102,9 @@ function EditTask(props) {
                 <option value="inProgress">In Progress </option>
                 <option value="done">Done</option>
               </select>
-              {errors.status && <span>{errors.status.message}</span>}
+              {errors.status && (
+                <span className="fieldError">{errors.status.message}</span>
+              )}
             </div>
           </div>
           <div className="flex justify-between">
@@ -108,7 +117,9 @@ function EditTask(props) {
                 })}
                 className="h-2/3"
               />
-              {errors.deadline && <span>{errors.deadline.message}</span>}
+              {errors.deadline && (
+                <span className="fieldError">{errors.deadline.message}</span>
+              )}
             </div>
             <div className="newTaskFormContainer w-2/5">
               <label>Importance</label>
@@ -122,18 +133,24 @@ function EditTask(props) {
                 <option value="medium">Medium </option>
                 <option value="high">High</option>
               </select>
-              {errors.importance && <span>{errors.importance.message}</span>}
+              {errors.importance && (
+                <span className="fieldError">{errors.importance.message}</span>
+              )}
             </div>
           </div>
           <div className="uploadFileContainer">
             <label>Image</label>
             <input type="file" name="image" />
-            {errors.image && <span>{errors.image.message}</span>}
+            {errors.image && (
+              <span className="fieldError">{errors.image.message}</span>
+            )}
           </div>
           <div className="uploadFileContainer">
             <label>File</label>
             <input type="file" name="file" />
-            {errors.file && <span>{errors.file.message}</span>}
+            {errors.file && (
+              <span className="fieldError">{errors.file.message}</span>
+            )}
           </div>
           <div className="flex">
             <button

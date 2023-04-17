@@ -12,7 +12,7 @@ function Login() {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm();
+  } = useForm({ mode: "onChange" });
   const handleLogin = (data) => {
     dispatch(loginWith(data, navigate));
     reset();
@@ -29,15 +29,15 @@ function Login() {
           className="loginForm flex flex-col mt-4"
         >
           <div className="loginFormContainer">
-            <label>Email</label>
+            <label htmlFor="email">Email</label>
             <input
               placeholder="e.g. user@email.com"
               type="email"
-              {...register("email", {
-                required: "Email is required",
-              })}
+              {...register("email", { required: "You must enter an email" })}
             />
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && (
+              <span className="fieldError">{errors.email.message}</span>
+            )}
           </div>
 
           <div className="loginFormContainer">
@@ -48,7 +48,9 @@ function Login() {
                 required: "Password is required",
               })}
             />
-            {errors.password && <span>{errors.password.message}</span>}
+            {errors.password && (
+              <span className="fieldError">{errors.password.message}</span>
+            )}
           </div>
           <div className="flex">
             <button

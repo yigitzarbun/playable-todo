@@ -45,3 +45,7 @@ code {
 .active-link {
   @apply text-blue-500 font-bold;
 }
+
+.fieldError {
+  @apply text-red-700 text-xs mt-8;
+}

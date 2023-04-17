@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -13,12 +13,19 @@ function NewTask() {
     handleSubmit,
     reset,
     formState: { errors, isValid },
-  } = useForm({ defaultValues: { importance: "medium", status: "toDo" } });
+  } = useForm({
+    defaultValues: { importance: "medium", status: "toDo" },
+    mode: "onChange",
+  });
+
   const handleNewTask = (data) => {
     const dataWide = {
       ...data,
       user_id: user.user_id,
+      image: data.image[0],
+      file: data.file[0],
     };
+    console.log(dataWide);
     dispatch(addTask(dataWide, navigate));
     reset();
   };
@@ -35,6 +42,7 @@ function NewTask() {
         </Link>
         <form
           onSubmit={handleSubmit(handleNewTask)}
+          encType="multipart/form-data"
           className="newTaskForm flex flex-col mt-4"
         >
           <div className="newTaskFormContainer">
@@ -46,7 +54,9 @@ function NewTask() {
                 required: "Task title is required",
               })}
             />
-            {errors.title && <span>{errors.title.message}</span>}
+            {errors.title && (
+              <span className="fieldError">{errors.title.message}</span>
+            )}
           </div>
           <div className="newTaskFormContainer">
             <label>Description</label>
@@ -59,16 +69,20 @@ function NewTask() {
                 },
               })}
             />
-            {errors.description && <span>{errors.description.message}</span>}
+            {errors.description && (
+              <span className="fieldError">{errors.description.message}</span>
+            )}
           </div>
-          <div className="flex justify-between xs:flex-col">
-            <div className="newTaskFormContainer">
+          <div className="flex justify-between items-start xs:flex-col">
+            <div className="newTaskFormContainer w-2/5">
               <label>Tag</label>
               <input
                 type="text"
                 {...register("tag", { required: "Task tag is required" })}
               />
-              {errors.description && <span>{errors.description.message}</span>}
+              {errors.tag && (
+                <span className="fieldError">{errors.tag.message}</span>
+              )}
             </div>
             <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Status</label>
@@ -82,7 +96,9 @@ function NewTask() {
                 <option value="inProgress">In Progress </option>
                 <option value="done">Done</option>
               </select>
-              {errors.status && <span>{errors.status.message}</span>}
+              {errors.status && (
+                <span className="fieldError">{errors.status.message}</span>
+              )}
             </div>
           </div>
           <div className="flex justify-between xs:flex-col">
@@ -95,7 +111,9 @@ function NewTask() {
                 })}
                 className="h-2/3"
               />
-              {errors.deadline && <span>{errors.deadline.message}</span>}
+              {errors.deadline && (
+                <span className="fieldError">{errors.deadline.message}</span>
+              )}
             </div>
             <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Importance</label>
@@ -109,18 +127,22 @@ function NewTask() {
                 <option value="medium">Medium </option>
                 <option value="high">High</option>
               </select>
-              {errors.importance && <span>{errors.importance.message}</span>}
+              {errors.importance && (
+                <span className="fieldError">{errors.importance.message}</span>
+              )}
             </div>
           </div>
           <div className="uploadFileContainer">
-            <label>Image</label>
-            <input type="file" name="image" />
-            {errors.image && <span>{errors.image.message}</span>}
+            <label>
+              Image
+              <input type="file" name="image" {...register("image")} />
+            </label>
           </div>
           <div className="uploadFileContainer">
-            <label>File</label>
-            <input type="file" name="file" />
-            {errors.file && <span>{errors.file.message}</span>}
+            <label>
+              File
+              <input type="file" name="file" {...register("file")} />
+            </label>
           </div>
           <div className="flex xs:flex-col">
             <button
