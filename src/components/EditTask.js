@@ -21,6 +21,8 @@ function EditTask(props) {
       status: task.status,
       deadline: task.deadline,
       importance: task.importance,
+      //image: task.image,
+      // file: task.file,
     },
     mode: "onChange",
   });
@@ -33,12 +35,44 @@ function EditTask(props) {
     formData.append("tag", data.tag);
     formData.append("title", data.title);
     formData.append("user_id", task.user_id);
-    formData.append("image", data.image[0]);
-    formData.append("file", data.file[0]);
+    if (
+      data.image &&
+      data.image.length > 0 &&
+      data.image != undefined &&
+      data.image != null
+    ) {
+      formData.append("image", data.image[0]);
+    } else if (
+      task.image &&
+      task.image.length > 0 &&
+      task.image != undefined &&
+      task.image != null
+    ) {
+      formData.append("image", task.image);
+    }
+
+    if (
+      data.file &&
+      data.file.length > 0 &&
+      data.file != undefined &&
+      data.file != null
+    ) {
+      formData.append("file", data.file[0]);
+    } else if (
+      task.file &&
+      task.file.length > 0 &&
+      task.file != undefined &&
+      task.file != null
+    ) {
+      formData.append("file", task.file);
+    }
+
     formData.append("task_id", task.task_id);
     dispatch(editTask(formData));
     navigate("/");
     handleEditArea();
+    console.log(data);
+    console.log(formData);
     reset();
   };
 

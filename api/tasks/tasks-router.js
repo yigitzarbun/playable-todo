@@ -77,7 +77,7 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:id", async (req, res, next) => {
   try {
-    if (req.files !== null) {
+    if (req.files !== null && req.files != undefined) {
       if (req.files.image && req.files.file) {
         const image = req.files.image;
         const imagePath = path.join(
@@ -125,7 +125,13 @@ router.put("/:id", async (req, res, next) => {
         res.status(201).json(updatedTask);
       }
     } else {
-      const updates = req.body;
+      const updates = { ...req.body };
+      if (!req.files || !req.files.image) {
+        delete updates.image;
+      }
+      if (!req.files || !req.files.file) {
+        delete updates.file;
+      }
       await tasksModel.update(updates.task_id, updates);
       const updatedTask = await tasksModel.getById(updates.task_id);
       res.status(201).json(updatedTask);
