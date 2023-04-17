@@ -25,11 +25,18 @@ function EditTask(props) {
     mode: "onChange",
   });
   const handleEditTask = (data) => {
-    const dataWide = {
-      ...data,
-      task_id: task.task_id,
-    };
-    dispatch(editTask(dataWide));
+    const formData = new FormData();
+    formData.append("deadline", data.deadline);
+    formData.append("description", data.description);
+    formData.append("importance", data.importance);
+    formData.append("status", data.status);
+    formData.append("tag", data.tag);
+    formData.append("title", data.title);
+    formData.append("user_id", task.user_id);
+    formData.append("image", data.image[0]);
+    formData.append("file", data.file[0]);
+    formData.append("task_id", task.task_id);
+    dispatch(editTask(formData));
     navigate("/");
     handleEditArea();
     reset();
@@ -49,6 +56,7 @@ function EditTask(props) {
         </div>
         <form
           onSubmit={handleSubmit(handleEditTask)}
+          encType="multipart/form-data"
           className="newTaskForm flex flex-col mt-4"
         >
           <div className="newTaskFormContainer">
@@ -79,8 +87,8 @@ function EditTask(props) {
               <span className="fieldError">{errors.description.message}</span>
             )}
           </div>
-          <div className="flex justify-between items-start">
-            <div className="newTaskFormContainer w-2/5 ">
+          <div className="flex justify-between items-start xs:flex-col">
+            <div className="newTaskFormContainer w-2/5">
               <label>Tag</label>
               <input
                 type="text"
@@ -90,7 +98,7 @@ function EditTask(props) {
                 <span className="fieldError">{errors.tag.message}</span>
               )}
             </div>
-            <div className="newTaskFormContainer w-2/5">
+            <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Status</label>
               <select
                 {...register("status", {
@@ -107,8 +115,8 @@ function EditTask(props) {
               )}
             </div>
           </div>
-          <div className="flex justify-between">
-            <div className="newTaskFormContainer w-2/5">
+          <div className="flex justify-between xs:flex-col">
+            <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Deadline</label>
               <input
                 type="date"
@@ -121,7 +129,7 @@ function EditTask(props) {
                 <span className="fieldError">{errors.deadline.message}</span>
               )}
             </div>
-            <div className="newTaskFormContainer w-2/5">
+            <div className="newTaskFormContainer w-2/5 xs:w-full">
               <label>Importance</label>
               <select
                 {...register("importance", {
@@ -139,22 +147,20 @@ function EditTask(props) {
             </div>
           </div>
           <div className="uploadFileContainer">
-            <label>Image</label>
-            <input type="file" name="image" />
-            {errors.image && (
-              <span className="fieldError">{errors.image.message}</span>
-            )}
+            <label>
+              Image
+              <input type="file" name="image" {...register("image")} />
+            </label>
           </div>
           <div className="uploadFileContainer">
-            <label>File</label>
-            <input type="file" name="file" />
-            {errors.file && (
-              <span className="fieldError">{errors.file.message}</span>
-            )}
+            <label>
+              File
+              <input type="file" name="file" {...register("file")} />
+            </label>
           </div>
-          <div className="flex">
+          <div className="flex xs:flex-col">
             <button
-              className="mt-4 mr-2  border-2 w-1/2 cursor-pointer border-green-500 rounded-md hover:bg-green-500 hover:text-white p-2"
+              className="mt-4 mr-2  border-2 w-1/2 cursor-pointer border-green-500 rounded-md hover:bg-green-500 hover:text-white p-2 xs:w-full"
               disabled={!isValid}
               type="submit"
             >
@@ -162,7 +168,7 @@ function EditTask(props) {
             </button>
             <button
               onClick={handleEditArea}
-              className="font-bold mt-4 ml-2 w-1/2 border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white p-2 text-center"
+              className="font-bold mt-4 ml-2 w-1/2 border-2 border-red-500 rounded-md hover:bg-red-500 hover:text-white p-2 text-center xs:w-full xs:ml-0"
             >
               <p>Discard</p>
             </button>
