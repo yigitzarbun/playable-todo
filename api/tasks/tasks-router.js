@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const tasksModel = require("./tasks-model");
+const path = require("path");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -22,17 +23,21 @@ router.get("/:id", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    const image = req.files.image;
-    const path = __dirname + "/images/" + image.name;
-    image.mv(path, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("image uploaded");
-      }
-    });
-    const task = await tasksModel.add(req.body);
-    res.status(201).json(task);
+    if (req.files !== null) {
+      const image = req.files.image;
+      const imagePath = path.join(__dirname, "../public/images", image.name);
+      await image.mv(imagePath);
+      const task = await tasksModel.add({
+        ...req.body,
+        image: image.name,
+      });
+      res.status(201).json(task);
+    } else {
+      const task = await tasksModel.add({
+        ...req.body,
+      });
+      res.status(201).json(task);
+    }
   } catch (error) {
     next(error);
   }

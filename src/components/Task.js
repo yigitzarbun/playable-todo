@@ -41,6 +41,7 @@ function Task(props) {
   } else {
     status = "Done";
   }
+
   return (
     <div>
       {editArea ? (
@@ -66,6 +67,13 @@ function Task(props) {
               </p>
             ) : (
               <p className="text-xs italic text-red-300">{task.importance}</p>
+            )}
+            {task.image && (
+              <img
+                src={`images/${task.image}`}
+                alt="task-image"
+                className="w-6 h-6"
+              />
             )}
           </div>
           <h2 className="font-bold text-xl">{task.title}</h2>
