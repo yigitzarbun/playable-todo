@@ -41,13 +41,14 @@ function Task(props) {
   } else {
     status = "Done";
   }
+  console.log(task);
   return (
     <div>
       {editArea ? (
         <EditTask task={task} handleEditArea={handleEditArea} />
       ) : (
         <div className="flex flex-col bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-1/2 mx-auto">
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <p
               className="text-xs italic"
               style={
@@ -58,6 +59,13 @@ function Task(props) {
             >
               {distanceToNow}
             </p>
+            {task.image != "undefined" && (
+              <img
+                src={`images/${task.image}`}
+                alt="task-image"
+                className="w-8 h-8 rounded-full"
+              />
+            )}
             {task.importance == "low" ? (
               <p className="text-xs italic text-blue-300">{task.importance}</p>
             ) : task.importance == "medium" ? (
@@ -66,13 +74,6 @@ function Task(props) {
               </p>
             ) : (
               <p className="text-xs italic text-red-300">{task.importance}</p>
-            )}
-            {task.image && (
-              <img
-                src={`images/${task.image}`}
-                alt="task-image"
-                className="w-6 h-6"
-              />
             )}
           </div>
           <h2 className="font-bold text-xl">{task.title}</h2>
