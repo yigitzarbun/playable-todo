@@ -41,7 +41,6 @@ function Task(props) {
   } else {
     status = "Done";
   }
-  console.log(task);
   return (
     <div>
       {editArea ? (
@@ -116,9 +115,20 @@ function Task(props) {
               <button className="text-blue-300 text-sm">Edit</button>
             </div>
             {task.file != "undefined" && (
-              <a href={`files/${task.file}`} target="_blank">
-                Doc
-              </a>
+              <div className="flex cursor-pointer items-center">
+                <img
+                  src="/images/download.png"
+                  alt="delete-task"
+                  className="w-6 h-6 mr-2"
+                />
+                <a
+                  href={`files/${task.file}`}
+                  target="_blank"
+                  className="text-blue-300 text-sm"
+                >
+                  Doc
+                </a>
+              </div>
             )}
             <div className="flex cursor-pointer" onClick={handleDeleteTask}>
               <img
