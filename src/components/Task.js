@@ -115,6 +115,11 @@ function Task(props) {
               />
               <button className="text-blue-300 text-sm">Edit</button>
             </div>
+            {task.file != "undefined" && (
+              <a href={`files/${task.file}`} target="_blank">
+                Doc
+              </a>
+            )}
             <div className="flex cursor-pointer" onClick={handleDeleteTask}>
               <img
                 src="/images/deleteTask.png"
