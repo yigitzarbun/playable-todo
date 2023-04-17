@@ -17,16 +17,23 @@ function NewTask() {
     defaultValues: { importance: "medium", status: "toDo" },
     mode: "onChange",
   });
-
   const handleNewTask = (data) => {
-    const dataWide = {
+    const formData = new FormData();
+    /*const dataWide = {
       ...data,
       user_id: user.user_id,
       image: data.image[0],
       file: data.file[0],
-    };
-    console.log(dataWide);
-    dispatch(addTask(dataWide, navigate));
+    };*/
+    formData.append("deadline", data.deadline);
+    formData.append("description", data.description);
+    formData.append("importance", data.importance);
+    formData.append("status", data.status);
+    formData.append("tag", data.tag);
+    formData.append("title", data.title);
+    formData.append("user_id", user.user.user_id);
+    formData.append("image", data.image[0]);
+    dispatch(addTask(formData, navigate));
     reset();
   };
   return (
