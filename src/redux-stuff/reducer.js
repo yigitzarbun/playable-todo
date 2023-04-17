@@ -9,6 +9,7 @@ import {
   GET_MY_TASKS,
   EDIT_TASK,
   DELETE_TASK,
+  GET_USER,
 } from "./actions";
 
 //initial state
@@ -69,6 +70,11 @@ export function myReducer(state = initialState, action) {
       return {
         ...state,
         allTasks: [...newTasks],
+      };
+    case GET_USER:
+      return {
+        ...state,
+        user: state.user,
       };
     default:
       return state;

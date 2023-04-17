@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { addTask } from "../redux-stuff/actions";
+import { addTask, getUser } from "../redux-stuff/actions";
 
 function NewTask() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
+  let user = useSelector((store) => store.user);
+  if (user.user) {
+    user = user.user;
+  } else {
+    user = user;
+  }
   const {
     register,
     handleSubmit,
@@ -36,6 +41,9 @@ function NewTask() {
     dispatch(addTask(formData, navigate));
     reset();
   };
+  useEffect(() => {
+    dispatch(getUser());
+  }, []);
   return (
     <div>
       <div className="bg-slate-800 text-white p-8 mt-8 rounded-md shadow-md w-2/3 mx-auto">

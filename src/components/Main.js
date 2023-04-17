@@ -7,7 +7,12 @@ import InProgress from "./InProgress";
 import Done from "./Done";
 function Main() {
   const dispatch = useDispatch();
-  const { myTasks, user, allTasks } = useSelector((store) => store);
+  let { myTasks, user, allTasks } = useSelector((store) => store);
+  if (user.user) {
+    user = user.user;
+  } else {
+    user = user;
+  }
   const [display, setDisplay] = useState("toDo");
   const handleDisplay = (value) => {
     setDisplay(value);

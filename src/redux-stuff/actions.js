@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -25,6 +26,7 @@ export const GET_ALL_TASKS = "GET_ALL_TASKS";
 export const GET_MY_TASKS = "GET_MY_TASKS";
 export const EDIT_TASK = "EDIT_TASK";
 export const DELETE_TASK = "DELETE_TASK";
+export const GET_USER = "GET_USER";
 
 // axios (auth) set header
 const axiosWithAuth = () => {
@@ -122,4 +124,8 @@ export const deleteTask = (id) => (dispatch) => {
         toast.success("Task deleted");
       }
     });
+};
+
+export const getUser = () => {
+  return { type: GET_USER };
 };
