@@ -38,6 +38,7 @@ function NewTask() {
     formData.append("title", data.title);
     formData.append("user_id", user.user_id);
     formData.append("image", data.image[0]);
+    formData.append("file", data.file[0]);
     dispatch(addTask(formData, navigate));
     reset();
   };

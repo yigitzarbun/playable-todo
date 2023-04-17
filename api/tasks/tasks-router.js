@@ -24,14 +24,46 @@ router.get("/:id", async (req, res, next) => {
 router.post("/", async (req, res, next) => {
   try {
     if (req.files !== null) {
-      const image = req.files.image;
-      const imagePath = path.join(__dirname, "../public/images", image.name);
-      await image.mv(imagePath);
-      const task = await tasksModel.add({
-        ...req.body,
-        image: image.name,
-      });
-      res.status(201).json(task);
+      if (req.files.image && req.files.file) {
+        const image = req.files.image;
+        const imagePath = path.join(
+          __dirname,
+          "../../public/images",
+          image.name
+        );
+        await image.mv(imagePath);
+        const file = req.files.file;
+        const filePath = path.join(__dirname, "../../public/files", file.name);
+        await file.mv(filePath);
+        const task = await tasksModel.add({
+          ...req.body,
+          image: image.name,
+          file: file.name,
+        });
+        res.status(201).json(task);
+      } else if (req.files.image && req.files.file == null) {
+        const image = req.files.image;
+        const imagePath = path.join(
+          __dirname,
+          "../../public/images",
+          image.name
+        );
+        await image.mv(imagePath);
+        const task = await tasksModel.add({
+          ...req.body,
+          image: image.name,
+        });
+        res.status(201).json(task);
+      } else if (req.files.image == null && req.files.file) {
+        const file = req.files.file;
+        const filePath = path.join(__dirname, "../../public/files", file.name);
+        await file.mv(filePath);
+        const task = await tasksModel.add({
+          ...req.body,
+          file: file.name,
+        });
+        res.status(201).json(task);
+      }
     } else {
       const task = await tasksModel.add({
         ...req.body,

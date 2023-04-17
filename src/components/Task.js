@@ -41,7 +41,6 @@ function Task(props) {
   } else {
     status = "Done";
   }
-
   return (
     <div>
       {editArea ? (
